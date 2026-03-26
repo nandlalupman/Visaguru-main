@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ee0d6538-c2d9-4ee3-afd0-1e82d86ffd23",
+    "fullName": "Naitik",
+    "email": "naitikpathak06@gmail.com",
+    "whatsapp": "9988554888",
+    "visaType": "UK",
+    "message": "",
+    "status": "new",
+    "priority": "medium",
+    "createdAt": "2026-03-25T16:15:29.311Z",
+    "updates": [
+      {
+        "id": "b9454a32-22e2-44f1-a99c-9d7ed670b17d",
+        "status": "new",
+        "note": "Submission received.",
+        "createdAt": "2026-03-25T16:15:29.311Z",
+        "actorRole": "system",
+        "actorName": "VisaGuru System"
+      }
+    ]
+  }
+]

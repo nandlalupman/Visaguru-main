@@ -1,0 +1,51 @@
+<svg width="360" height="420" viewBox="0 0 360 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="360" height="420" rx="20" fill="#FAFAF8"/>
+  
+  <!-- Background Circle -->
+  <circle cx="180" cy="160" r="100" fill="#1A2744" opacity="0.05"/>
+  
+  <!-- Avatar Circle -->
+  <circle cx="180" cy="140" r="64" fill="#1A2744"/>
+  
+  <!-- Hair -->
+  <ellipse cx="180" cy="110" rx="42" ry="35" fill="#2A3D64"/>
+  
+  <!-- Face -->
+  <ellipse cx="180" cy="135" rx="34" ry="38" fill="#D4A373"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="168" cy="130" rx="3" ry="3.5" fill="#1A2744"/>
+  <ellipse cx="192" cy="130" rx="3" ry="3.5" fill="#1A2744"/>
+  
+  <!-- Smile -->
+  <path d="M170 145c4 5 16 5 20 0" stroke="#1A2744" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  
+  <!-- Earrings -->
+  <circle cx="146" cy="138" r="3" fill="#C9973E"/>
+  <circle cx="214" cy="138" r="3" fill="#C9973E"/>
+  
+  <!-- Name Plate -->
+  <rect x="80" y="230" width="200" height="36" rx="18" fill="#1A2744"/>
+  <text x="180" y="254" text-anchor="middle" fill="white" font-size="14" font-weight="600" font-family="system-ui">Priya Mehta</text>
+  
+  <!-- Role -->
+  <text x="180" y="288" text-anchor="middle" fill="#C9973E" font-size="11" font-weight="600" font-family="system-ui" letter-spacing="0.05em">Lead Refusal Strategist</text>
+  
+  <!-- Experience badges -->
+  <rect x="70" y="310" width="100" height="28" rx="14" fill="#FFF7EA" stroke="#E5E3DF" stroke-width="1"/>
+  <text x="120" y="329" text-anchor="middle" fill="#C9973E" font-size="10" font-weight="600" font-family="system-ui">9 Years Exp.</text>
+  
+  <rect x="185" y="310" width="105" height="28" rx="14" fill="#EFF9F4" stroke="#E5E3DF" stroke-width="1"/>
+  <text x="237" y="329" text-anchor="middle" fill="#2D7A5F" font-size="10" font-weight="600" font-family="system-ui">500+ Cases</text>
+  
+  <!-- Stars -->
+  <g transform="translate(130, 355)">
+    <polygon points="10,0 12.4,7.6 20,7.6 13.8,12.4 16.2,20 10,15.2 3.8,20 6.2,12.4 0,7.6 7.6,7.6" fill="#C9973E" transform="scale(0.7)"/>
+    <polygon points="10,0 12.4,7.6 20,7.6 13.8,12.4 16.2,20 10,15.2 3.8,20 6.2,12.4 0,7.6 7.6,7.6" fill="#C9973E" transform="translate(18,0) scale(0.7)"/>
+    <polygon points="10,0 12.4,7.6 20,7.6 13.8,12.4 16.2,20 10,15.2 3.8,20 6.2,12.4 0,7.6 7.6,7.6" fill="#C9973E" transform="translate(36,0) scale(0.7)"/>
+    <polygon points="10,0 12.4,7.6 20,7.6 13.8,12.4 16.2,20 10,15.2 3.8,20 6.2,12.4 0,7.6 7.6,7.6" fill="#C9973E" transform="translate(54,0) scale(0.7)"/>
+    <polygon points="10,0 12.4,7.6 20,7.6 13.8,12.4 16.2,20 10,15.2 3.8,20 6.2,12.4 0,7.6 7.6,7.6" fill="#C9973E" transform="translate(72,0) scale(0.7)"/>
+  </g>
+  
+  <text x="180" y="395" text-anchor="middle" fill="#6B7280" font-size="10" font-family="system-ui">4.9 Rating · Former UK Documentation Reviewer</text>
+</svg>

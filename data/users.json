@@ -1,0 +1,26 @@
+[
+  {
+    "id": "90ddc379-27eb-411b-9a81-75167dbebf40",
+    "name": "VisaGuru Admin",
+    "email": "admin@visaguru.live",
+    "role": "admin",
+    "passwordHash": "3440280f78f2646d5eb23d6db2e6489e3aae3f47d6c5ffbd4cb1c1f5f99a724b",
+    "createdAt": "2026-03-25T14:42:38.943Z"
+  },
+  {
+    "id": "9b94b051-f36a-424c-9774-5c89f47bbd67",
+    "name": "Test User",
+    "email": "test.user1@visaguru.live",
+    "role": "user",
+    "passwordHash": "0128f0a46a74aa8cbdf653b30d4ed0bfcc8b15db9896098f15bb9cd405beea18",
+    "createdAt": "2026-03-25T14:58:34.745Z"
+  },
+  {
+    "id": "894ea8eb-9256-4275-b2bf-bc99bec72da7",
+    "name": "Test User",
+    "email": "test.user.1774470579@visaguru.live",
+    "role": "user",
+    "passwordHash": "0128f0a46a74aa8cbdf653b30d4ed0bfcc8b15db9896098f15bb9cd405beea18",
+    "createdAt": "2026-03-25T14:59:38.827Z"
+  }
+]
