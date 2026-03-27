@@ -287,11 +287,11 @@ async function main() {
     },
     {
       name: "Express Recovery",
-      price: "₹7,999",
+      price: "₹12,000",
       note: "Urgent turnaround",
       features: JSON.stringify(["Everything in Full Recovery", "24-hour delivery", "Priority WhatsApp support", "Cover letter + supporting docs"]),
       popular: false,
-      amountInr: 7999,
+      amountInr: 12000,
       sortOrder: 2,
     },
   ];
