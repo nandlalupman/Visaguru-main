@@ -123,8 +123,8 @@ const DEFAULT_FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
 
 const DEFAULT_FOOTER_CONTACTS: ContactLink[] = [
   { label: "Email", href: "mailto:hello@visaguru.live" },
-  { label: "WhatsApp", href: "https://wa.me/919999999999" },
-  { label: "Phone", href: "tel:+919999999999" },
+  { label: "WhatsApp", href: "https://wa.me/917737099474" },
+  { label: "Phone", href: "tel:+917737099474" },
 ];
 
 const DEFAULT_FOOTER_SOCIALS: SocialLink[] = [
@@ -234,6 +234,8 @@ function parseTrustStats(
     .map((item) => {
       if (!isRecord(item)) return null;
       if (typeof item.value !== "string" || typeof item.label !== "string") return null;
+      // Respect the "visible" toggle from admin Stats panel
+      if (item.visible === false) return null;
       return { value: item.value, label: item.label };
     })
     .filter((item): item is { value: string; label: string } => item !== null);

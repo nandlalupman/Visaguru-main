@@ -8,6 +8,7 @@ import {
   ensureAdminUser,
   getPaymentMetrics,
   getSubmissionMetrics,
+  getSubmissionsByVisaType,
   listRecentPaymentOrders,
   listSubmissionsPage,
 } from "@/lib/store";
@@ -111,7 +112,7 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
   const status = parseStatus(params.status);
   const query = params.q?.trim() || undefined;
 
-  const [usersCount, submissionMetrics, submissionsPage, paymentMetrics, recentPayments, contentMetrics] =
+  const [usersCount, submissionMetrics, submissionsPage, paymentMetrics, recentPayments, contentMetrics, visaTypeBreakdown] =
     await Promise.all([
       countUsers(),
       getSubmissionMetrics(),
@@ -119,7 +120,14 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
       getPaymentMetrics(),
       listRecentPaymentOrders(12),
       getContentMetrics(),
+      getSubmissionsByVisaType(),
     ]);
+
+  const maxVisaCount = visaTypeBreakdown.length > 0 ? visaTypeBreakdown[0].count : 1;
+
+  // Admin credentials info
+  const adminEmail = process.env.ADMIN_EMAIL ?? "admin@visaguru.live";
+  const adminPasswordHint = process.env.NODE_ENV === "production" ? "(Set via ADMIN_PASSWORD env)" : "Admin@12345";
 
   const openCases =
     submissionMetrics.statusBreakdown.new + submissionMetrics.statusBreakdown.in_review;
@@ -152,6 +160,21 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
             </p>
           </div>
           <LogoutButton />
+        </div>
+
+        {/* ── Admin Credentials Info ── */}
+        <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50/50 p-4">
+          <div className="flex items-start gap-3">
+            <span className="text-2xl">🔐</span>
+            <div>
+              <p className="text-sm font-semibold text-[var(--color-navy)]">Admin Credentials</p>
+              <div className="mt-2 grid gap-2 text-sm md:grid-cols-3">
+                <p className="text-[var(--color-muted)]">Email: <span className="font-mono font-semibold text-[var(--color-navy)]">{adminEmail}</span></p>
+                <p className="text-[var(--color-muted)]">Password: <span className="font-mono font-semibold text-[var(--color-navy)]">{adminPasswordHint}</span></p>
+                <p className="text-[var(--color-muted)]">Role: <span className="rounded-full bg-[var(--color-navy)] px-2 py-0.5 text-xs font-semibold text-white">{session.role}</span></p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-3 lg:grid-cols-6">
@@ -258,6 +281,50 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
             </div>
           </article>
         </div>
+
+        {/* ── Visa Type Analytics ── */}
+        {visaTypeBreakdown.length > 0 && (
+          <div className="mt-8 rounded-2xl border border-[var(--color-border)] bg-white p-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-muted)]">Submission Analytics</p>
+                <h3 className="mt-1 text-lg font-bold text-[var(--color-navy)]">Visa Type Breakdown</h3>
+                <p className="text-xs text-[var(--color-muted)]">Which visa types are most applied for — sorted by frequency</p>
+              </div>
+              <span className="text-3xl">📊</span>
+            </div>
+            <div className="mt-5 space-y-3">
+              {visaTypeBreakdown.map((item, idx) => (
+                <div key={item.visaType} className="flex items-center gap-3">
+                  <span className="w-6 text-center text-xs font-bold text-[var(--color-gold)]">{idx + 1}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-1">
+                      <p className="text-sm font-semibold text-[var(--color-navy)] truncate">{item.visaType}</p>
+                      <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                        idx === 0
+                          ? "bg-[var(--color-gold)] text-white"
+                          : idx < 3
+                            ? "bg-amber-100 text-amber-700"
+                            : "bg-gray-100 text-gray-600"
+                      }`}>
+                        {item.count} {item.count === 1 ? "submission" : "submissions"}
+                      </span>
+                    </div>
+                    <div className="h-2 overflow-hidden rounded-full bg-gray-100">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${
+                          idx === 0 ? "bg-[var(--color-gold)]" : idx < 3 ? "bg-amber-400" : "bg-gray-300"
+                        }`}
+                        style={{ width: `${Math.max(8, (item.count / maxVisaCount) * 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-xs text-[var(--color-muted)]">💡 Top visa types indicate where your marketing and services have the most traction.</p>
+          </div>
+        )}
 
         <div id="submissions" className="mt-6 rounded-2xl border border-[var(--color-border)] bg-white p-4">
           <form className="grid gap-3 md:grid-cols-[1fr_180px_auto]">

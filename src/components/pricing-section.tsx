@@ -1,8 +1,9 @@
 "use client";
 
-import { CheckCircle2, ShieldCheck, Clock3 } from "lucide-react";
+import { useState } from "react";
+import { CheckCircle2, ShieldCheck, Clock3, MessageCircle } from "lucide-react";
 import Link from "next/link";
-import { RazorpayButton } from "@/components/razorpay-button";
+import { QRPaymentModal } from "@/components/qr-payment-modal";
 import { Reveal } from "@/components/reveal";
 
 type PricingTier = {
@@ -16,6 +17,11 @@ type PricingTier = {
 };
 
 export function PricingSection({ tiers }: { tiers: PricingTier[] }) {
+  const [selectedPlan, setSelectedPlan] = useState<{
+    name: string;
+    price: string;
+  } | null>(null);
+
   return (
     <>
       <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -44,16 +50,19 @@ export function PricingSection({ tiers }: { tiers: PricingTier[] }) {
                   </li>
                 ))}
               </ul>
-              <RazorpayButton
-                planName={tier.name}
+              <button
+                type="button"
+                onClick={() =>
+                  setSelectedPlan({ name: tier.name, price: tier.price })
+                }
                 className={`mt-5 block w-full rounded-full py-2.5 text-center text-sm font-semibold transition ${
                   tier.popular
                     ? "btn-shimmer bg-[var(--color-gold)] text-white hover:shadow-[var(--shadow-gold)]"
                     : "border border-[var(--color-border)] text-[var(--color-navy)] hover:bg-[var(--color-bg)]"
                 }`}
               >
-                Get Started -&gt;
-              </RazorpayButton>
+                Get Started →
+              </button>
             </article>
           </Reveal>
         ))}
@@ -67,13 +76,21 @@ export function PricingSection({ tiers }: { tiers: PricingTier[] }) {
         </p>
         <p className="surface-card rounded-2xl p-4">
           <ShieldCheck className="mb-2 h-4 w-4 text-[var(--color-green)]" />
-          100% secure payment with SSL via Razorpay.
+          100% secure payment via UPI / QR Code.
         </p>
         <p className="surface-card rounded-2xl p-4">
           <Clock3 className="mb-2 h-4 w-4 text-[var(--color-gold)]" />
           Work starts within 2 hours of receiving payment and documents.
         </p>
       </div>
+
+      {/* QR Payment Modal */}
+      <QRPaymentModal
+        isOpen={selectedPlan !== null}
+        onClose={() => setSelectedPlan(null)}
+        planName={selectedPlan?.name ?? ""}
+        price={selectedPlan?.price ?? ""}
+      />
     </>
   );
 }

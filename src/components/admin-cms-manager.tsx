@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 
-type Tab = "services" | "testimonials" | "videos" | "blog" | "faq" | "pricing" | "config";
+type Tab = "services" | "testimonials" | "videos" | "blog" | "faq" | "pricing" | "stats" | "config";
 
 const TABS: { key: Tab; label: string; icon: string }[] = [
   { key: "services", label: "Services", icon: "🌐" },
@@ -11,6 +11,7 @@ const TABS: { key: Tab; label: string; icon: string }[] = [
   { key: "blog", label: "Blog", icon: "📝" },
   { key: "faq", label: "FAQ", icon: "❓" },
   { key: "pricing", label: "Pricing", icon: "💰" },
+  { key: "stats", label: "Stats", icon: "📊" },
   { key: "config", label: "Site Config", icon: "⚙️" },
 ];
 
@@ -21,6 +22,7 @@ const TAB_DESCRIPTIONS: Record<Tab, string> = {
   blog: "SEO authority content",
   faq: "Common questions by service",
   pricing: "Packages and payment amounts",
+  stats: "Homepage numbers — edit & show/hide",
   config: "Header, footer, legal, and homepage copy",
 };
 
@@ -690,6 +692,168 @@ function PricingPanel({ toast }: { toast: (msg: string, type: "success" | "error
 }
 
 /* ================================================================
+   STATS PANEL — Edit & toggle homepage trust stats
+   ================================================================ */
+
+type StatItem = { value: string; label: string; visible: boolean };
+
+function StatsPanel({ toast }: { toast: (msg: string, type: "success" | "error") => void }) {
+  const [stats, setStats] = useState<StatItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [editing, setEditing] = useState<{ index: number; stat: StatItem } | null>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    try {
+      const configs = await apiFetch("/api/admin/site-config");
+      const trustConfig = configs.find((c: { key: string; value: unknown }) => c.key === "trust_stats");
+      if (trustConfig) {
+        let parsed: unknown;
+        try { parsed = typeof trustConfig.value === "string" ? JSON.parse(trustConfig.value) : trustConfig.value; } catch { parsed = []; }
+        if (Array.isArray(parsed)) {
+          setStats(parsed.map((s: { value?: string; label?: string; visible?: boolean }) => ({
+            value: s.value ?? "",
+            label: s.label ?? "",
+            visible: s.visible !== false,
+          })));
+        }
+      } else {
+        // Default trust stats
+        setStats([
+          { value: "500+", label: "Cases Handled", visible: true },
+          { value: "94%", label: "Approval Rate", visible: true },
+          { value: "48hr", label: "Average Delivery", visible: true },
+          { value: "5★", label: "Average Rating", visible: true },
+        ]);
+      }
+    } catch { toast("Failed to load stats", "error"); }
+    setLoading(false);
+  }, [toast]);
+
+  useEffect(() => { load(); }, [load]);
+
+  const saveAll = async () => {
+    setSaving(true);
+    try {
+      await apiFetch("/api/admin/site-config", {
+        method: "PATCH",
+        body: JSON.stringify({ trust_stats: stats }),
+      });
+      toast("Stats saved successfully", "success");
+    } catch { toast("Failed to save stats", "error"); }
+    setSaving(false);
+  };
+
+  const toggleVisibility = (index: number) => {
+    setStats((prev) => prev.map((s, i) => i === index ? { ...s, visible: !s.visible } : s));
+  };
+
+  const removeItem = (index: number) => {
+    if (!confirm("Remove this stat?")) return;
+    setStats((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const addItem = () => {
+    setStats((prev) => [...prev, { value: "0", label: "New Stat", visible: true }]);
+  };
+
+  const moveItem = (from: number, direction: "up" | "down") => {
+    const to = direction === "up" ? from - 1 : from + 1;
+    if (to < 0 || to >= stats.length) return;
+    setStats((prev) => {
+      const arr = [...prev];
+      [arr[from], arr[to]] = [arr[to], arr[from]];
+      return arr;
+    });
+  };
+
+  if (loading) return <p className="py-8 text-center text-sm text-gray-400">Loading stats…</p>;
+
+  return (
+    <div>
+      <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-[var(--color-border)] bg-white p-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p className="text-sm font-semibold text-[var(--color-navy)]">Homepage Trust Stats</p>
+          <p className="text-xs text-gray-500">Edit numbers shown on homepage and service pages. Toggle visibility to hide/show.</p>
+        </div>
+        <div className="flex gap-2">
+          <button type="button" onClick={addItem} className="rounded-full bg-[var(--color-gold)] px-4 py-2 text-sm font-semibold text-[var(--color-navy)] transition hover:brightness-110">+ Add Stat</button>
+          <button type="button" onClick={saveAll} disabled={saving} className={cls(
+            "rounded-full px-6 py-2 text-sm font-semibold text-white transition",
+            saving ? "bg-gray-400 cursor-wait" : "bg-[var(--color-navy)] hover:bg-[var(--color-navy-light)]"
+          )}>{saving ? "Saving…" : "💾 Save All"}</button>
+        </div>
+      </div>
+
+      {/* Live Preview */}
+      <div className="mb-5 rounded-2xl border border-dashed border-[var(--color-gold)] bg-[#fffdf5] p-4">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-gold)]">Live Preview</p>
+        <div className="grid gap-3 md:grid-cols-4">
+          {stats.filter(s => s.visible).map((s, i) => (
+            <div key={i} className="rounded-xl bg-white p-4 text-center shadow-sm border border-gray-100">
+              <p className="font-mono text-2xl font-semibold text-[var(--color-navy)]">{s.value}</p>
+              <p className="mt-1 text-xs text-[var(--color-muted)]">{s.label}</p>
+            </div>
+          ))}
+          {stats.filter(s => s.visible).length === 0 && (
+            <p className="col-span-4 text-center text-sm text-gray-400">All stats are hidden. Toggle them visible below.</p>
+          )}
+        </div>
+      </div>
+
+      {/* Stats List */}
+      <div className="space-y-2">
+        {stats.map((stat, index) => (
+          <div key={index} className={cls(
+            "flex items-center gap-3 rounded-xl border bg-white px-4 py-3 transition",
+            stat.visible ? "border-gray-100" : "border-red-100 bg-red-50/30 opacity-60"
+          )}>
+            <div className="flex flex-col gap-0.5">
+              <button type="button" onClick={() => moveItem(index, "up")} disabled={index === 0} className="text-xs text-gray-400 hover:text-gray-600 disabled:opacity-30">▲</button>
+              <button type="button" onClick={() => moveItem(index, "down")} disabled={index === stats.length - 1} className="text-xs text-gray-400 hover:text-gray-600 disabled:opacity-30">▼</button>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-[var(--color-navy)]">
+                <span className="font-mono text-lg">{stat.value}</span>
+                <span className="ml-2 text-sm font-normal text-gray-500">— {stat.label}</span>
+              </p>
+              <p className="text-xs text-gray-400">{stat.visible ? "✅ Visible on site" : "🚫 Hidden from visitors"}</p>
+            </div>
+            <button type="button" onClick={() => toggleVisibility(index)} className={cls(
+              "rounded-full px-3 py-1 text-xs font-semibold transition",
+              stat.visible ? "border border-green-200 text-green-700 hover:bg-green-50" : "border border-red-200 text-red-600 hover:bg-red-50"
+            )}>{stat.visible ? "Hide" : "Show"}</button>
+            <button type="button" onClick={() => setEditing({ index, stat: { ...stat } })} className="rounded-full border border-gray-200 px-3 py-1 text-xs font-semibold text-[var(--color-navy)] hover:bg-gray-50">Edit</button>
+            <button type="button" onClick={() => removeItem(index)} className="rounded-full border border-red-200 px-3 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-50">✕</button>
+          </div>
+        ))}
+      </div>
+
+      {editing && (
+        <Modal title="Edit Stat" onClose={() => setEditing(null)}>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            setStats((prev) => prev.map((s, i) => i === editing.index ? editing.stat : s));
+            setEditing(null);
+            toast("Stat updated — click 'Save All' to publish", "success");
+          }} className="space-y-3">
+            <FieldInput label="Value (e.g. 500+, 94%, 48hr)" value={editing.stat.value} onChange={(v) => setEditing({ ...editing, stat: { ...editing.stat, value: v } })} />
+            <FieldInput label="Label (e.g. Cases Handled)" value={editing.stat.label} onChange={(v) => setEditing({ ...editing, stat: { ...editing.stat, label: v } })} />
+            <FieldCheck label="Visible on site" checked={editing.stat.visible} onChange={(v) => setEditing({ ...editing, stat: { ...editing.stat, visible: v } })} />
+            <SaveBtn loading={false} label="Apply" />
+          </form>
+        </Modal>
+      )}
+
+      <p className="mt-4 rounded-xl border border-dashed border-gray-200 bg-gray-50 px-4 py-3 text-xs text-gray-500">
+        💡 <strong>Tip:</strong> Changes are applied to the live site only after clicking &quot;Save All&quot;. Hidden stats are not shown to visitors but remain saved.
+      </p>
+    </div>
+  );
+}
+
+/* ================================================================
    SITE CONFIG PANEL
    ================================================================ */
 
@@ -837,8 +1001,8 @@ const SITE_CONFIG_TEMPLATES: SiteConfigTemplate[] = [
     type: "json",
     fallbackValue: [
       { label: "Email", href: "mailto:hello@visaguru.live" },
-      { label: "WhatsApp", href: "https://wa.me/919999999999" },
-      { label: "Phone", href: "tel:+919999999999" },
+      { label: "WhatsApp", href: "https://wa.me/917737099474" },
+      { label: "Phone", href: "tel:+917737099474" },
     ],
     aliases: ["footerContactLinks"],
   },
@@ -1254,6 +1418,7 @@ export default function AdminCmsManager() {
         {activeTab === "blog" && <BlogPanel toast={showToast} />}
         {activeTab === "faq" && <FaqPanel toast={showToast} />}
         {activeTab === "pricing" && <PricingPanel toast={showToast} />}
+        {activeTab === "stats" && <StatsPanel toast={showToast} />}
         {activeTab === "config" && <SiteConfigPanelV2 toast={showToast} />}
       </div>
 

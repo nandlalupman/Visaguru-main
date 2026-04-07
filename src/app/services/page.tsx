@@ -257,7 +257,7 @@ export default async function ServicesPage() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-[var(--color-muted)]">
             <p className="flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-[var(--color-green)]" />
-              Secure payment via Razorpay
+              Secure payment via UPI / QR Code
             </p>
             <p className="flex items-center gap-1.5">
               <Star className="h-4 w-4 text-[var(--color-gold)]" />

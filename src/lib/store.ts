@@ -455,6 +455,19 @@ export async function updateSubmissionStatus(
   return updateSubmission(submissionId, { status });
 }
 
+export async function getSubmissionsByVisaType() {
+  const grouped = await prisma.submission.groupBy({
+    by: ["visaType"],
+    _count: { _all: true },
+    orderBy: { _count: { visaType: "desc" } },
+  });
+
+  return grouped.map((row) => ({
+    visaType: row.visaType,
+    count: row._count._all,
+  }));
+}
+
 export async function getPaymentMetrics() {
   const [totalOrders, paidOrders, failedOrders, revenue] = await Promise.all([
     prisma.paymentOrder.count(),

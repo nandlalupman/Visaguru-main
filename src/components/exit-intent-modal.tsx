@@ -2,27 +2,26 @@
 
 import Link from "next/link";
 import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const EXIT_MODAL_KEY = "visaguru_exit_modal_seen";
 
 export function ExitIntentModal() {
   const [open, setOpen] = useState(false);
+  const dismissed = useRef(false);
+
+  const dismiss = () => {
+    setOpen(false);
+    dismissed.current = true;
+  };
 
   useEffect(() => {
-    const seen = window.sessionStorage.getItem(EXIT_MODAL_KEY);
-    if (seen) return;
-
-    const onMouseLeave = (event: MouseEvent) => {
-      if (event.clientY <= 8) {
+    const timer = setTimeout(() => {
+      if (!dismissed.current) {
         setOpen(true);
-        window.sessionStorage.setItem(EXIT_MODAL_KEY, "1");
       }
-    };
+    }, 30_000); // 30 seconds baad popup aayega
 
-    document.addEventListener("mouseout", onMouseLeave);
-    return () => document.removeEventListener("mouseout", onMouseLeave);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -34,7 +33,7 @@ export function ExitIntentModal() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(10,16,34,0.5)] p-4 backdrop-blur-sm"
-          onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
+          onClick={(e) => { if (e.target === e.currentTarget) dismiss(); }}
         >
           <motion.div
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -48,7 +47,7 @@ export function ExitIntentModal() {
             <button
               type="button"
               className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--color-muted)] transition hover:bg-[var(--color-bg)] hover:text-[var(--color-navy)]"
-              onClick={() => setOpen(false)}
+              onClick={dismiss}
               aria-label="Close"
             >
               <X size={18} />
@@ -68,14 +67,14 @@ export function ExitIntentModal() {
               <Link
                 href="/#free-analysis"
                 className="btn-shimmer inline-flex items-center justify-center rounded-full bg-[var(--color-gold)] px-6 py-2.5 text-sm font-semibold text-white transition hover:shadow-[var(--shadow-gold)]"
-                onClick={() => setOpen(false)}
+                onClick={dismiss}
               >
                 Get Free Analysis
               </Link>
               <button
                 type="button"
                 className="inline-flex items-center justify-center rounded-full border border-[var(--color-border)] px-5 py-2.5 text-sm font-semibold text-[var(--color-navy)] transition hover:bg-[var(--color-bg)]"
-                onClick={() => setOpen(false)}
+                onClick={dismiss}
               >
                 Continue Browsing
               </button>

@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState, useTransition } from "react";
+import { Menu, X, LogOut, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { EditableLink } from "@/lib/site-config";
+
+type SessionData =
+  | { authenticated: true; name: string; role: string }
+  | { authenticated: false };
 
 type SiteHeaderClientProps = {
   brandName: string;
@@ -15,6 +19,7 @@ type SiteHeaderClientProps = {
   navLinks: EditableLink[];
   loginLink: EditableLink;
   cta: EditableLink;
+  session: SessionData;
 };
 
 function isExternal(href: string, forceExternal?: boolean) {
@@ -64,10 +69,13 @@ export function SiteHeaderClient({
   navLinks,
   loginLink,
   cta,
+  session,
 }: SiteHeaderClientProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isLoggingOut, startLogout] = useTransition();
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -79,6 +87,25 @@ export function SiteHeaderClient({
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  const handleLogout = () => {
+    startLogout(async () => {
+      await fetch("/api/auth/logout", { method: "POST" });
+      router.push("/");
+      router.refresh();
+    });
+  };
+
+  const isAuthenticated = session.authenticated;
+  const userName = session.authenticated ? session.name : "";
+  const userRole = session.authenticated ? session.role : "";
+  const dashboardHref = userRole === "admin" ? "/admin/dashboard" : "/dashboard";
+  const initials = userName
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
     <header
@@ -129,17 +156,44 @@ export function SiteHeaderClient({
               </HeaderLink>
             );
           })}
-          <HeaderLink
-            link={loginLink}
-            className={cn(
-              "text-sm font-medium transition-colors duration-200",
-              pathname === loginLink.href
-                ? "text-[var(--color-navy)]"
-                : "text-[var(--color-muted)] hover:text-[var(--color-navy)]",
-            )}
-          >
-            {loginLink.label}
-          </HeaderLink>
+
+          {/* Auth section: Login or User Profile */}
+          {isAuthenticated ? (
+            <div className="flex items-center gap-3">
+              <Link
+                href={dashboardHref}
+                className="flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3 py-1.5 text-sm font-medium text-[var(--color-navy)] transition-all duration-200 hover:border-[var(--color-gold)] hover:bg-[var(--color-surface)]"
+              >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-navy)] text-[10px] font-bold text-white">
+                  {initials}
+                </span>
+                <span className="max-w-[100px] truncate">{userName.split(" ")[0]}</span>
+              </Link>
+              <button
+                type="button"
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-muted)] transition-all duration-200 hover:border-red-300 hover:bg-red-50 hover:text-red-500"
+                aria-label="Logout"
+                title="Logout"
+              >
+                <LogOut size={14} />
+              </button>
+            </div>
+          ) : (
+            <HeaderLink
+              link={loginLink}
+              className={cn(
+                "text-sm font-medium transition-colors duration-200",
+                pathname === loginLink.href
+                  ? "text-[var(--color-navy)]"
+                  : "text-[var(--color-muted)] hover:text-[var(--color-navy)]",
+              )}
+            >
+              {loginLink.label}
+            </HeaderLink>
+          )}
+
           <HeaderLink
             link={cta}
             className="btn-shimmer rounded-full bg-[var(--color-gold)] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-[var(--shadow-gold)]"
@@ -205,13 +259,38 @@ export function SiteHeaderClient({
                   {link.label}
                 </HeaderLink>
               ))}
-              <HeaderLink
-                link={loginLink}
-                className="text-sm font-medium text-[var(--color-muted)]"
-                onClick={() => setIsOpen(false)}
-              >
-                {loginLink.label}
-              </HeaderLink>
+
+              {/* Mobile Auth Section */}
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    href={dashboardHref}
+                    className="flex items-center gap-2 text-sm font-medium text-[var(--color-navy)]"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <User size={16} />
+                    {userName} — Dashboard
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => { setIsOpen(false); handleLogout(); }}
+                    disabled={isLoggingOut}
+                    className="flex items-center gap-2 text-sm font-medium text-red-500"
+                  >
+                    <LogOut size={16} />
+                    {isLoggingOut ? "Logging out..." : "Logout"}
+                  </button>
+                </>
+              ) : (
+                <HeaderLink
+                  link={loginLink}
+                  className="text-sm font-medium text-[var(--color-muted)]"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {loginLink.label}
+                </HeaderLink>
+              )}
+
               <HeaderLink
                 link={cta}
                 className="inline-flex w-full items-center justify-center rounded-full bg-[var(--color-gold)] px-5 py-2.5 text-sm font-semibold text-white"

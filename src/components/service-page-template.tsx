@@ -257,7 +257,7 @@ export function ServicePageTemplate({
               Service Pricing
             </h2>
             <p className="mt-2 text-sm text-[var(--color-muted)]">
-              Transparent fees with secure payment via Razorpay. Pick the plan
+              Transparent fees with secure UPI / QR payment. Pick the plan
               that fits your case.
             </p>
           </Reveal>
@@ -364,7 +364,7 @@ export function ServicePageTemplate({
           <div className="mt-5 flex flex-wrap items-center justify-center gap-6 text-xs text-[var(--color-muted)]">
             <p className="flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-[var(--color-green)]" />
-              Secure payment via Razorpay
+              Secure payment via UPI / QR Code
             </p>
             <p className="flex items-center gap-1.5">
               <Clock3 className="h-4 w-4 text-[var(--color-gold)]" />

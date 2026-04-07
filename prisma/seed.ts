@@ -498,8 +498,8 @@ async function main() {
     ]), label: "Footer Link Groups" },
     { key: "footer_contact_links", value: JSON.stringify([
       { label: "Email", href: "mailto:hello@visaguru.live" },
-      { label: "WhatsApp", href: "https://wa.me/919999999999" },
-      { label: "Phone", href: "tel:+919999999999" },
+      { label: "WhatsApp", href: "https://wa.me/917737099474" },
+      { label: "Phone", href: "tel:+917737099474" },
     ]), label: "Footer Contact Links" },
     { key: "footer_social_links", value: JSON.stringify([
       { platform: "LinkedIn", href: "https://www.linkedin.com/company/visaguru" },
