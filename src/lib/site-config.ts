@@ -161,17 +161,16 @@ function parseStringArray(value: unknown, fallback: string[]): string[] {
 
 function parseLinks(value: unknown, fallback: EditableLink[]): EditableLink[] {
   if (!Array.isArray(value)) return fallback;
-  const parsed = value
-    .map((item) => {
-      if (!isRecord(item)) return null;
-      if (typeof item.href !== "string" || typeof item.label !== "string") return null;
-      return {
-        href: item.href,
-        label: item.label,
-        external: Boolean(item.external),
-      };
-    })
-    .filter((item): item is EditableLink => item !== null);
+  const parsed: EditableLink[] = [];
+  for (const item of value) {
+    if (!isRecord(item)) continue;
+    if (typeof item.href !== "string" || typeof item.label !== "string") continue;
+    parsed.push({
+      href: item.href,
+      label: item.label,
+      external: Boolean(item.external),
+    });
+  }
   return parsed.length > 0 ? parsed : fallback;
 }
 

@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "npm run build:compile && npm run build:generate",
-    "build:compile": "next build --webpack --experimental-build-mode compile",
-    "build:generate": "next build --webpack --experimental-build-mode generate",
+    "build": "next build",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:init": "node scripts/init-db.mjs",
