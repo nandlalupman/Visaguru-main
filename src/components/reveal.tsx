@@ -1,11 +1,11 @@
 "use client";
 
-import { type TargetAndTransition, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
 type AnimationVariant = "fade-up" | "fade-left" | "fade-right" | "scale";
 
-const variants: Record<AnimationVariant, { initial: TargetAndTransition; animate: TargetAndTransition }> = {
+const variants: Record<AnimationVariant, { initial: any; animate: any }> = {
   "fade-up": {
     initial: { opacity: 0, y: 28 },
     animate: { opacity: 1, y: 0 },

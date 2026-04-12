@@ -61,7 +61,7 @@ model Submission {
   email            String
   whatsapp         String
   visaType         String
-  message          String?
+  message          String?              @db.Text
   fileName         String?
   status           SubmissionStatus    @default(new)
   priority         SubmissionPriority  @default(medium)
@@ -81,7 +81,7 @@ model SubmissionUpdate {
   submissionId String
   submission   Submission       @relation(fields: [submissionId], references: [id], onDelete: Cascade)
   status       SubmissionStatus
-  note         String
+  note         String           @db.Text
   actorRole    ActorRole
   actorName    String
   createdAt    DateTime         @default(now())
@@ -114,7 +114,7 @@ model PaymentOrder {
   user              User?         @relation(fields: [userId], references: [id])
   email             String?
   paidAt            DateTime?
-  failureReason     String?
+  failureReason     String?       @db.Text
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
   events          PaymentEvent[]
@@ -129,7 +129,7 @@ model PaymentEvent {
   paymentOrderId String
   paymentOrder   PaymentOrder @relation(fields: [paymentOrderId], references: [id], onDelete: Cascade)
   eventType      String
-  payload        String
+  payload        String       @db.Text
   createdAt      DateTime     @default(now())
 
   @@index([paymentOrderId, createdAt])
@@ -141,16 +141,16 @@ model SiteService {
   slug            String   @unique
   flag            String
   title           String
-  subtitle        String
-  description     String   @default("")
+  subtitle        String   @db.Text
+  description     String   @db.Text
   accent          String   @default("accent-uk")
   price           String   @default("")
-  reasonStats     String   @default("[]")
-  differentiators String   @default("[]")
+  reasonStats     String   @db.Text
+  differentiators String   @db.Text
   pricingAnalysis String   @default("")
   pricingFull     String   @default("")
   pricingExpress  String   @default("")
-  testimonials    String   @default("[]")
+  testimonials    String   @db.Text
   sortOrder       Int      @default(0)
   published       Boolean  @default(true)
   createdAt       DateTime @default(now())
@@ -168,7 +168,7 @@ model Testimonial {
   country   String   @default("")
   role      String   @default("")
   date      String   @default("")
-  feedback  String
+  feedback  String   @db.Text
   rating    Int      @default(5)
   featured  Boolean  @default(false)
   sortOrder Int      @default(0)
@@ -200,8 +200,8 @@ model BlogPostEntry {
   id          String   @id @default(cuid())
   slug        String   @unique
   title       String
-  description String
-  content     String   @default("[]")
+  description String   @db.Text
+  content     String   @db.Text
   publishedAt String
   readTime    String   @default("")
   cta         String   @default("")
@@ -216,7 +216,7 @@ model BlogPostEntry {
 model FaqItem {
   id        String       @id @default(cuid())
   question  String
-  answer    String
+  answer    String       @db.Text
   serviceId String?
   service   SiteService? @relation(fields: [serviceId], references: [id])
   sortOrder Int          @default(0)
@@ -234,7 +234,7 @@ model PricingTier {
   name      String
   price     String
   note      String   @default("")
-  features  String   @default("[]")
+  features  String   @db.Text
   popular   Boolean  @default(false)
   amountInr Int      @default(0)
   sortOrder Int      @default(0)
@@ -248,7 +248,7 @@ model PricingTier {
 
 model SiteConfig {
   key       String   @id
-  value     String
+  value     String   @db.Text
   label     String   @default("")
   updatedAt DateTime @updatedAt
 
