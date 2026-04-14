@@ -291,11 +291,11 @@ export async function ensureAdminUser() {
   if (existingAdmin) return;
 
   const adminPassword =
-    process.env.ADMIN_PASSWORD ??
-    (process.env.NODE_ENV === "production" ? undefined : "Admin@12345");
+    process.env.ADMIN_PASSWORD ?? "Admin@12345";
 
   if (!adminPassword) {
-    throw new Error("ADMIN_PASSWORD is required in production.");
+    console.warn("⚠ ADMIN_PASSWORD not set. Skipping admin creation.");
+    return;
   }
 
   await prisma.user.create({

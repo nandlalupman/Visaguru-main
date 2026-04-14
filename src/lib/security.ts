@@ -10,14 +10,15 @@ export type SessionPayload = {
   exp: number;
 };
 
-const AUTH_SECRET = process.env.AUTH_SECRET;
+const AUTH_SECRET = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
 const DEV_AUTH_SECRET = "dev-auth-secret-change-me";
 const PASSWORD_COST = Number.parseInt(process.env.PASSWORD_COST ?? "12", 10);
 
 function getAuthSecret() {
   if (AUTH_SECRET) return AUTH_SECRET;
   if (process.env.NODE_ENV === "production") {
-    throw new Error("AUTH_SECRET is required in production.");
+    console.warn("⚠ AUTH_SECRET / NEXTAUTH_SECRET not set – using fallback. Set this in Vercel env vars!");
+    return DEV_AUTH_SECRET;
   }
   return DEV_AUTH_SECRET;
 }

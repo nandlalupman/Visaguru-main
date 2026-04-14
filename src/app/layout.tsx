@@ -9,6 +9,8 @@ import { ExitIntentModal } from "@/components/exit-intent-modal";
 import { ChatbotWidget } from "@/components/chatbot-widget";
 import { assertProductionConfig, getSiteUrl } from "@/lib/env";
 
+export const dynamic = "force-dynamic";
+
 const playfair = Playfair_Display({
   variable: "--font-display",
   subsets: ["latin"],
