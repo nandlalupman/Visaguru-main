@@ -5,8 +5,8 @@ import { AuthForm } from "@/components/auth-form";
 import { getCurrentSession } from "@/lib/session";
 
 export const metadata: Metadata = {
-  title: "Create Account",
-  description: "Create a VisaGuru account to manage your visa recovery requests.",
+  title: "Sign Up",
+  description: "Create your VisaGuru account to track your visa cases.",
 };
 
 type SignupPageProps = {
@@ -15,9 +15,7 @@ type SignupPageProps = {
 
 function sanitizeNextPath(value?: string) {
   if (!value) return undefined;
-  if (!value.startsWith("/") || value.startsWith("//") || value.startsWith("/admin")) {
-    return undefined;
-  }
+  if (!value.startsWith("/") || value.startsWith("//")) return undefined;
   return value;
 }
 
@@ -27,7 +25,7 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
   const nextPath = sanitizeNextPath(params.next);
   const session = await getCurrentSession();
   if (session?.role === "admin") {
-    redirect("/admin/dashboard");
+    redirect(nextPath ?? "/admin/dashboard");
   }
   if (session?.role === "user") {
     redirect(nextPath ?? "/dashboard");
@@ -38,7 +36,7 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
       <div className="mx-auto w-full max-w-md px-4 md:px-0">
         <h1 className="text-4xl text-[var(--color-navy)]">Create Account</h1>
         <p className="mt-3 text-sm text-[var(--color-muted)]">
-          Save your details, submit refusal files, and track progress.
+          Sign up to track your case updates and access your dashboard.
         </p>
         <div className="mt-6">
           <AuthForm mode="signup" nextPath={nextPath} />

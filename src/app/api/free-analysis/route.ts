@@ -1,33 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { createSubmission } from "@/lib/store";
-import { getCurrentSession } from "@/lib/session";
+import { createSubmission, findUserByEmail } from "@/lib/store";
 import { enforceRateLimit, getRequestIdentifier } from "@/lib/rate-limit";
+import { sendAdminNotification, sendUserConfirmation } from "@/lib/mailer";
 
 const schema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 characters."),
   email: z.string().email("Enter a valid email."),
-  whatsapp: z
-    .string()
-    .min(8, "Enter a valid phone number.")
-    .regex(/^[\d+\-\s()]+$/, "Phone number contains invalid characters."),
+  whatsapp: z.string().optional(),
   visaType: z.string().min(2, "Select a visa type."),
   message: z.string().max(500, "Message must be under 500 characters.").optional(),
 });
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getCurrentSession();
-    if (!session) {
-      return NextResponse.json(
-        {
-          message: "Please log in to submit your case.",
-          loginUrl: "/login?next=/#free-analysis",
-        },
-        { status: 401 },
-      );
-    }
-
     const identifier = getRequestIdentifier(request.headers.get("x-forwarded-for"));
     const rate = await enforceRateLimit({
       bucket: "free_analysis_submit",
@@ -44,7 +29,6 @@ export async function POST(request: NextRequest) {
 
     const formData = await request.formData();
     const payload = {
-      fullName: String(formData.get("fullName") ?? "").trim(),
       email: String(formData.get("email") ?? "")
         .trim()
         .toLowerCase(),
@@ -61,6 +45,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: firstError }, { status: 400 });
     }
 
+    // Auto-link to existing user if they exist
+    const existingUser = await findUserByEmail(result.data.email);
+    const userId = existingUser?.id;
+
     const file = formData.get("refusalLetter");
     if (file instanceof File && file.size > 8 * 1024 * 1024) {
       return NextResponse.json(
@@ -74,13 +62,26 @@ export async function POST(request: NextRequest) {
     }
 
     const submission = await createSubmission({
-      userId: session.userId,
-      fullName: result.data.fullName,
+      userId: userId,
+      fullName: existingUser?.name ?? "Guest",
       email: result.data.email,
-      whatsapp: result.data.whatsapp,
+      whatsapp: result.data.whatsapp || "",
       visaType: result.data.visaType,
       message: result.data.message,
       fileName: file instanceof File ? file.name : undefined,
+    });
+
+    // Send emails (non-blocking, failures are logged but don't break the flow)
+    Promise.all([
+      sendAdminNotification({
+        email: result.data.email,
+        visaType: result.data.visaType,
+        message: result.data.message,
+        whatsapp: result.data.whatsapp,
+      }),
+      sendUserConfirmation(result.data.email, result.data.visaType),
+    ]).catch((err) => {
+      console.error("[MAILER] Failed to send notification emails:", err);
     });
 
     return NextResponse.json({

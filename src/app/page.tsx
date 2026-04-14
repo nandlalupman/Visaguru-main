@@ -9,6 +9,7 @@ import {
   FileX,
   FolderX,
   Globe2,
+  MessageCircle,
   ShieldCheck,
   Star,
   XCircle,
@@ -19,6 +20,7 @@ import { LiveStats } from "@/components/live-stats";
 import { PricingSection } from "@/components/pricing-section";
 import { Reveal } from "@/components/reveal";
 import { SocialProofTicker } from "@/components/social-proof-ticker";
+import { VisaQuiz } from "@/components/visa-quiz";
 import {
   getServices,
   getTestimonials,
@@ -26,6 +28,7 @@ import {
   getPricingTiers,
 } from "@/lib/content-store";
 import { getHomeContentConfig } from "@/lib/site-config";
+import { getContactInfo } from "@/lib/contact-config";
 
 export const metadata = {
   title: "Visa Rejected? Expert SOP and Refusal Recovery",
@@ -34,13 +37,14 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const [services, testimonials, faqItems, pricingTiers, homeContent] =
+  const [services, testimonials, faqItems, pricingTiers, homeContent, contactInfo] =
     await Promise.all([
       getServices(),
       getTestimonials(),
       getGlobalFaqItems(),
       getPricingTiers(),
       getHomeContentConfig(),
+      getContactInfo(),
     ]);
 
   const faqSchema = {
@@ -114,6 +118,15 @@ export default async function Home() {
               >
                 See Success Stories
               </Link>
+              <a
+                href={`${contactInfo.whatsappLink}?text=${encodeURIComponent("Hi VisaGuru, I'd like to book a consultation.")}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:brightness-95"
+              >
+                <MessageCircle className="mr-2 h-4 w-4" />
+                Book Consultation
+              </a>
             </div>
 
             <div className="glass-card mt-8 grid gap-2 rounded-2xl p-4 text-xs text-white md:grid-cols-2 md:text-sm">
@@ -470,6 +483,28 @@ export default async function Home() {
           <PricingSection tiers={pricingTiers} />
         </div>
       </section>
+
+      <section id="visa-quiz" className="section-padding section-gradient-warm">
+        <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 md:grid-cols-[1fr_1.2fr] md:items-start md:px-6">
+          <Reveal>
+            <p className="inline-flex rounded-full bg-[#fff7ea] px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-gold)]">
+              Quick Assessment
+            </p>
+            <h2 className="mt-4 text-4xl leading-tight text-[var(--color-navy)] md:text-5xl">
+              Find Your Best Visa Path
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-[var(--color-muted)]">
+              Answer 4 quick questions and get a personalized country recommendation
+              based on your profile, budget, and goals.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <VisaQuiz />
+          </Reveal>
+        </div>
+      </section>
+
+      <div className="gold-shimmer-divider" />
 
       <section className="section-padding bg-[var(--color-surface)]">
         <div className="mx-auto w-full max-w-5xl px-4 md:px-6">

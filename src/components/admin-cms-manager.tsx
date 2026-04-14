@@ -922,13 +922,37 @@ type SiteConfigTemplate = {
   key: string;
   label: string;
   description: string;
-  group: "Brand & Header" | "Footer & Legal" | "Homepage";
+  group: "Contact Info" | "Brand & Header" | "Footer & Legal" | "Homepage";
   type: "text" | "json";
   aliases?: string[];
   fallbackValue: unknown;
 };
 
 const SITE_CONFIG_TEMPLATES: SiteConfigTemplate[] = [
+  {
+    key: "contact_whatsapp",
+    label: "WhatsApp Number",
+    description: "WhatsApp number used for floating button, form CTAs, and footer. Format: 917737099474 (country code + number, no spaces).",
+    group: "Contact Info",
+    type: "text",
+    fallbackValue: "917737099474",
+  },
+  {
+    key: "contact_email",
+    label: "Contact Email",
+    description: "Primary email shown in footer and used for notifications.",
+    group: "Contact Info",
+    type: "text",
+    fallbackValue: "hello@visaguru.live",
+  },
+  {
+    key: "contact_phone",
+    label: "Phone Number",
+    description: "Phone number shown in footer contact section.",
+    group: "Contact Info",
+    type: "text",
+    fallbackValue: "+91 7737099474",
+  },
   {
     key: "brand_name",
     label: "Brand Name",

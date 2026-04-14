@@ -7,7 +7,7 @@ import { getCurrentSession } from "@/lib/session";
 export const metadata: Metadata = {
   title: "Login",
   description:
-    "Single VisaGuru login for both users and admins, with role-based dashboard access.",
+    "Log in to your VisaGuru account with password or email OTP.",
 };
 
 type LoginPageProps = {
