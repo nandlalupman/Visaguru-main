@@ -25,61 +25,61 @@ export const trustDestinations = [
 
 export const problemCards = [
   {
-    title: "Weak SOP",
+    title: "Section 214(b) Denial",
     description:
-      "Visa officers reject 60%+ of applications because the SOP does not address specific concerns.",
+      "The #1 reason for US visa rejection. It means the officer wasn't convinced you'll return home. A 214b visa rejection doesn't mean you lied — it means your ties weren't clear enough.",
   },
   {
-    title: "Financial Ambiguity",
+    title: "Weak Financial Proof",
     description:
-      "Unclear or incomplete financial evidence triggers automatic doubt, regardless of actual funds.",
+      "A last-minute lump sum deposit or unclear sponsor relationship raises red flags instantly. Visa financial proof rejection happens even when you actually have the money.",
   },
   {
-    title: "Poor Documentation",
+    title: "Section 221(g) Refusal",
     description:
-      "Missing or mismatched documents are the #1 avoidable reason for refusals.",
+      "This 221g visa refusal means your application is incomplete or needs more documents. It's technically a hold, not a denial — but without the right response, it becomes one.",
   },
   {
-    title: "No Clear Intent",
+    title: "DS-160 Mistakes",
     description:
-      "Officers need a compelling reason for your trip and a credible return intent.",
+      "In 2025, a new rule requires the DS-160 barcode to exactly match the one used for interview booking. DS-160 mistakes cause visa rejection more often than people realize.",
   },
   {
-    title: "Generic Templates",
+    title: "AI-Generated SOPs Flagged",
     description:
-      "AI-generated or copy-pasted SOPs are recognized quickly by experienced reviewers.",
+      "Germany embassies now actively reject AI-generated motivation letters. Copy-paste templates and ChatGPT drafts are getting caught by experienced reviewers.",
   },
   {
-    title: "No Refusal Strategy",
+    title: "Social Media Red Flags",
     description:
-      "Reapplying without addressing the exact refusal grounds is the biggest post-rejection mistake.",
+      "US consular officers now review your social media as part of the process. Inconsistent posts, public complaints, or mismatched timelines can quietly sink your application.",
   },
 ] as const;
 
 export const processSteps = [
   {
-    title: "Share Your Refusal Letter",
-    day: "Day 0",
+    title: "Upload Your Rejection Letter",
+    day: "Takes 2 Minutes",
     description:
-      "Upload your refusal letter securely. We review every line and supporting context.",
+      "Share your refusal letter through our secure upload. Don't worry about what it says — that's our job to decode.",
   },
   {
-    title: "Expert Refusal Analysis",
-    day: "Day 1",
+    title: "We Analyze Every Line",
+    day: "Within 2 Hours",
     description:
-      "A senior consultant maps every concern raised by the visa officer into a response strategy.",
+      "Our team reads your letter like a visa officer would and identifies exactly what triggered the rejection. No guessing, no generic advice.",
   },
   {
-    title: "SOP + Document Rebuild",
+    title: "Get Your Fix-It Report",
     day: "Day 1-2",
     description:
-      "We write an officer-focused SOP, financial explanation, and supporting letters where needed.",
+      "You'll get a detailed breakdown of what went wrong, what to change, and a rebuilt SOP and document checklist tailored to your case.",
   },
   {
     title: "Reapply With Confidence",
-    day: "Day 3+",
+    day: "When You're Ready",
     description:
-      "Receive final documents with a submission checklist and strategic filing notes.",
+      "Walk into your next interview knowing your file is solid. We give you everything the officer needs to say yes this time.",
   },
 ] as const;
 
@@ -266,63 +266,54 @@ export const pricingTiers = [
 
 export const faqItems = [
   {
-    question: "Will reapplying after a refusal hurt my chances?",
+    question: "Why was my visa rejected?",
     answer:
-      "Not if refusal reasons are addressed directly with stronger evidence and improved narrative logic.",
+      "Every rejection has a specific reason, even if the letter feels vague. The most common one is Section 214(b) — which basically means the officer wasn't convinced you'd return home after your trip. Other reasons include insufficient financial proof, missing documents (221g), or inconsistencies in your application. It's rarely personal, and it's almost always fixable once you understand what actually triggered it.",
   },
   {
-    question: "How do I share my refusal letter with you?",
+    question: "Can I reapply after visa rejection?",
     answer:
-      "Use the encrypted upload field in our form or share securely on WhatsApp Business after confirmation.",
+      "Yes, absolutely. There's no law that stops you from reapplying immediately after a visa denial. But here's the thing — reapplying with the exact same file is a waste of time and money. You need to fix the specific issues the officer flagged. VisaGuru.live helps you understand what those issues were and builds you a stronger case before you walk back in.",
   },
   {
-    question: "Is my personal information safe?",
+    question: "How long should I wait before reapplying?",
     answer:
-      "Yes. Files are encrypted in transit and retained only for the minimum service period.",
+      "There's no mandatory waiting period for most visa types. Some people reapply within a week, others take a few months. What matters isn't how long you wait — it's whether you actually fixed what went wrong. Rushing in with the same weak file is worse than waiting and getting it right. We'll tell you honestly if you're ready or need more prep.",
   },
   {
-    question: "What if I disagree with the refusal reason?",
+    question: "What is a 214(b) visa rejection?",
     answer:
-      "We still map strategy to the officer's written concerns, because that is what is evaluated during reapplication.",
+      "Section 214(b) is the most common reason for US visa denial. It means the consular officer wasn't satisfied that you have strong enough ties to your home country — things like a stable job, property, family obligations, or a clear plan to return. It doesn't mean they think you're lying. It just means your file didn't prove it clearly enough. The good news? It's one of the easiest rejections to fix with the right documentation.",
   },
   {
-    question: "Can you help with multiple visa types?",
+    question: "Does a previous rejection hurt my next application?",
     answer:
-      "Yes. We support student, tourist, selected work categories, and fresh SOP writing.",
+      "A past rejection is visible to the officer reviewing your next application. But it doesn't automatically mean you'll be rejected again. Officers look at whether you've addressed the previous concerns. If your new file is stronger and shows clear changes, a previous denial can actually work in your favor — it shows you took feedback seriously. The worst thing you can do is pretend it didn't happen.",
   },
   {
-    question: "How soon can I reapply after rejection?",
+    question: "What documents do I need to fix after rejection?",
     answer:
-      "Timelines vary by country and category. Reapply once refusal points are resolved and documents are updated.",
+      "It depends entirely on why you were rejected. If it was 214(b), you'll need stronger proof of ties to your home country — employment letters, property documents, family obligations. If it was financial, you need cleaner bank statements and a solid explanation of fund sources. If your SOP was flagged, it needs a complete rewrite. VisaGuru analyzes your specific rejection and tells you exactly which documents need work.",
   },
   {
-    question: "Do you provide services for work visas too?",
-    answer: "Yes, for selected categories where document narratives are required.",
+    question: "Can VisaGuru really help me figure out why I was rejected?",
+    answer:
+      "That's literally what we built this tool for. You upload your refusal letter, and our AI visa analyzer combined with expert review breaks down every line of the rejection into plain language. We don't just tell you what happened — we tell you what to change and how to make your next application stronger. We've helped 500+ applicants so far, with a 94% approval rate on reapplications.",
   },
   {
-    question: "What is your approval rate?",
+    question: "Is there a fee to use VisaGuru?",
     answer:
-      "Our rolling success benchmark is 94% on cases that follow the full strategy and checklist.",
-  },
-  {
-    question: "Can I use the SOP for multiple countries?",
-    answer:
-      "No. Each destination evaluates specific criteria, so each SOP should be tailored.",
-  },
-  {
-    question: "Do you work with students, workers, or tourists?",
-    answer:
-      "All three. Each case is handled with profile-specific strategy and documents.",
+      "The initial refusal analysis is completely free — no credit card, no commitment. You upload your letter and get a detailed breakdown within 2 hours. If you want us to rebuild your SOP, write financial explanation letters, or create a full reapplication package, those are paid services starting at ₹999. But the free analysis alone gives you real, actionable insight you won't find anywhere else.",
   },
 ];
 
 export const socialProofTicker = [
-  "Priya from Mumbai got her Canada visa approved this week",
-  "Arjun from Pune received UK student visa approval",
-  "Nidhi from Delhi cleared Schengen reapplication",
-  "Harsh from Ahmedabad fixed financial clarification and got approval",
-  "Ananya from Hyderabad approved for Germany intake",
-  "Rohit from Bengaluru converted refusal into approval in 17 days",
+  "Rahul from Delhi got his F-1 visa approved after 214(b) rejection — this week",
+  "Sneha from Pune turned a Canada study permit refusal into approval in 14 days",
+  "Ankit from Mumbai fixed his financial proof and got Germany student visa approved",
+  "Priya from Hyderabad cleared UK visa reapplication after two previous denials",
+  "Karan from Bangalore got Australia student visa approved with rebuilt SOP",
+  "Nidhi from Chennai fixed DS-160 errors and passed her US visa interview",
 ];
 
 export type ServiceData = {

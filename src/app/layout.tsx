@@ -35,31 +35,38 @@ const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "VisaGuru | Visa Refusal Recovery & SOP Writing Service",
+    default: "Visa Rejected? Fix It With VisaGuru | Free Analysis",
     template: "%s | VisaGuru",
   },
   description:
-    "Premium visa refusal recovery service for UK, Canada, Schengen, Germany, and Australia applications. Expert SOP rewriting, refusal analysis, and reapplication strategy.",
+    "Visa rejected? VisaGuru explains why and shows you how to fix it. AI-powered refusal letter analysis + expert reapplication strategy. Try free.",
   keywords: [
-    "visa refusal help India",
-    "SOP after visa rejection",
-    "UK visa rejected what to do",
-    "Canada study visa refusal SOP",
+    "visa rejected what to do next",
+    "why was my visa rejected",
+    "visa rejection reason explained",
+    "how to fix visa rejection",
     "visa refusal letter analysis",
+    "reapply after visa denial",
+    "214b visa rejection",
+    "221g visa refusal meaning",
+    "visa rejection for Indian students 2025",
+    "student visa rejected F1 2025 2026",
+    "AI visa analyzer tool",
+    "visa rejection reapplication success tips",
   ],
   openGraph: {
     type: "website",
-    title: "VisaGuru | Turn Visa Rejections Into Approvals",
+    title: "Visa Rejected? You Deserve to Know Exactly Why | VisaGuru",
     description:
-      "We analyze refusal letters, rebuild SOPs, and help applicants reapply with confidence.",
+      "Upload your visa rejection letter. Get a clear, honest breakdown of what went wrong and exactly how to fix it before you reapply.",
     url: siteUrl,
     siteName: "VisaGuru",
   },
   twitter: {
     card: "summary_large_image",
-    title: "VisaGuru | Visa Refusal Recovery",
+    title: "Visa Rejected? Find Out Why — Free | VisaGuru",
     description:
-      "Expert SOP writing and visa refusal recovery for major destinations.",
+      "41% of US student visas got rejected in 2026. Don't guess — let VisaGuru analyze your refusal and tell you how to fix it.",
   },
 };
 

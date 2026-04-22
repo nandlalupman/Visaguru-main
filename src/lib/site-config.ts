@@ -133,9 +133,9 @@ const DEFAULT_FOOTER_SOCIALS: SocialLink[] = [
   { platform: "YouTube", href: "https://www.youtube.com" },
 ];
 
-const DEFAULT_HOME_HERO_TITLE = "Your Visa Was Rejected. Here's How We Fix It.";
+const DEFAULT_HOME_HERO_TITLE = "Visa Rejected? You Deserve to Know Exactly Why.";
 const DEFAULT_HOME_HERO_SUBTITLE =
-  "We analyze your refusal letter, rebuild your SOP, and give visa officers exactly what they need to say yes. 500+ cases, 94% approval rate.";
+  "Upload your rejection letter and we'll tell you exactly what went wrong — in plain English. Then we'll help you fix every issue before you reapply. 500+ cases handled, 94% success rate.";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -366,7 +366,7 @@ export function resolveSiteShellConfig(configs: Record<string, unknown>): SiteSh
     ),
     footerBottomText: parseString(
       firstDefined(configs, ["footer_bottom_text", "footerBottomText"]),
-      "© 2026 VisaGuru | Registered in India (CIN: U12345MH2020PTC123456) | Not affiliated with any government embassy or immigration authority.",
+      "© 2026 VisaGuru | Via Arenaccia, 29, 80141 Napoli NA, Italy | Not affiliated with any government embassy or immigration authority.",
     ),
     newsletterTitle: parseString(
       firstDefined(configs, ["newsletter_title", "newsletterTitle"]),
@@ -391,7 +391,7 @@ export function resolveHomeContentConfig(configs: Record<string, unknown>): Home
   return {
     heroTagline: parseString(
       firstDefined(configs, ["hero_tagline", "heroTagline"]),
-      "Premium Visa Refusal Recovery",
+      "Trusted by 500+ Rejected Applicants Since 2020",
     ),
     heroTitle: parseString(
       firstDefined(configs, ["hero_title", "heroTitle"]),
@@ -403,7 +403,7 @@ export function resolveHomeContentConfig(configs: Record<string, unknown>): Home
     ),
     heroTrustMessage: parseString(
       firstDefined(configs, ["hero_trust_message", "heroTrustMessage"]),
-      "Expert SOP Writing for All Major Destinations",
+      "Helping rejected applicants from US, UK, Canada, Germany & Australia get approved",
     ),
     problemCards: parseProblemCards(
       firstDefined(configs, ["problem_cards", "problemCards"]),
@@ -411,7 +411,7 @@ export function resolveHomeContentConfig(configs: Record<string, unknown>): Home
     ),
     statCallout: parseString(
       firstDefined(configs, ["stat_callout", "statCallout"]),
-      "In 2023, Canada alone rejected approximately 320,000 study permit applications.",
+      "In 2025, India's US visa rejection rate hit 61% — the highest ever recorded. Over 253,000 student visa applications were denied in a single year.",
     ),
     processSteps: parseProcessSteps(
       firstDefined(configs, ["process_steps", "processSteps"]),

@@ -31,9 +31,9 @@ import { getHomeContentConfig } from "@/lib/site-config";
 import { getContactInfo } from "@/lib/contact-config";
 
 export const metadata = {
-  title: "Visa Rejected? Expert SOP and Refusal Recovery",
+  title: "Visa Rejected? Find Out Why & Fix It | VisaGuru",
   description:
-    "Premium visa refusal recovery for UK, Canada, Germany, Australia, and Schengen applications. Free refusal analysis in 2 hours.",
+    "Got your visa rejected? VisaGuru analyzes your refusal letter, explains exactly what went wrong, and shows you how to fix it before reapplying. Free analysis in 2 hours.",
 };
 
 export default async function Home() {
@@ -66,11 +66,14 @@ export default async function Home() {
     name: "VisaGuru",
     image: "https://visaguru.live/og-image.jpg",
     url: "https://visaguru.live",
-    telephone: "+91-99999-99999",
+    telephone: "+91-7737099474",
     address: {
       "@type": "PostalAddress",
-      addressCountry: "IN",
-      addressLocality: "Mumbai",
+      streetAddress: "Via Arenaccia, 29",
+      addressLocality: "Napoli",
+      postalCode: "80141",
+      addressRegion: "NA",
+      addressCountry: "IT",
     },
     aggregateRating: {
       "@type": "AggregateRating",
@@ -110,7 +113,7 @@ export default async function Home() {
                 href="#free-analysis"
                 className="btn-shimmer inline-flex items-center justify-center rounded-full bg-[var(--color-gold)] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-[var(--shadow-gold)]"
               >
-                Get a Free Refusal Analysis <ArrowRight className="ml-2 h-4 w-4" />
+                Analyze My Rejection Free <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
               <Link
                 href="#case-studies"
@@ -164,10 +167,10 @@ export default async function Home() {
         <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
           <Reveal>
             <h2 className="text-center text-3xl text-[var(--color-navy)] md:text-5xl">
-              Why Visas Get Rejected and Why It&apos;s Not Your Fault
+              Why Was My Visa Rejected? The Real Reasons Explained
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-[var(--color-muted)]">
-              Understanding the reasons empowers a stronger reapplication.
+              With a 41% US F-1 rejection rate in 2026 and 253,000+ student visas denied in a single year, you&apos;re far from alone. Here&apos;s what actually goes wrong.
             </p>
           </Reveal>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -217,10 +220,10 @@ export default async function Home() {
         <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
           <Reveal>
             <h2 className="text-center text-3xl text-[var(--color-navy)] md:text-5xl">
-              Our 4-Step Visa Recovery System
+              How to Fix Your Visa Rejection — Our Simple Process
             </h2>
             <p className="mt-3 text-center text-sm text-[var(--color-muted)]">
-              Express 24-hour turnaround available for urgent cases.
+              No jargon, no guesswork. Just a clear path from rejection to approval, with express 24-hour turnaround for urgent cases.
             </p>
           </Reveal>
           <div className="mt-10 grid gap-5 md:grid-cols-4">
@@ -510,7 +513,7 @@ export default async function Home() {
         <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
           <Reveal>
             <h2 className="text-center text-3xl text-[var(--color-navy)] md:text-5xl">
-              Common Questions
+              Visa Rejected? Your Questions, Answered Honestly
             </h2>
           </Reveal>
           <div className="mt-8">
@@ -526,12 +529,10 @@ export default async function Home() {
               Final Step
             </p>
             <h2 className="mt-4 text-4xl leading-tight text-[var(--color-navy)] md:text-5xl">
-              Don&apos;t Let One Rejection Define Your Future
+              Visa Rejected? Find Out Exactly What Went Wrong
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-[var(--color-muted)]">
-              Get a free refusal analysis within 2 hours. No commitment, no
-              upfront payment. Create an account to track your case updates in
-              your dashboard.
+              Upload your refusal letter and get a detailed analysis within 2 hours — completely free. We&apos;ll tell you exactly why your visa was rejected and what to fix before you reapply. No commitment, no payment upfront.
             </p>
             <div className="mt-6 space-y-3 text-sm text-[var(--color-muted)]">
               <p className="flex items-start gap-2">

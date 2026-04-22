@@ -4,9 +4,9 @@ import { Reveal } from "@/components/reveal";
 import { getBlogPosts } from "@/lib/content-store";
 
 export const metadata: Metadata = {
-  title: "Visa Refusal Blog",
+  title: "Visa Rejection Blog — Tips, Guides & Recovery Strategies",
   description:
-    "Expert guides on SOP writing after refusal, financial letters, and country-specific reapplication strategy.",
+    "Honest, practical guides for anyone dealing with a visa rejection. Learn why visas get denied, how to fix 214(b) rejections, and reapply with confidence.",
 };
 
 export default async function BlogPage() {
@@ -17,14 +17,14 @@ export default async function BlogPage() {
       <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
         <Reveal>
           <p className="inline-flex rounded-full bg-[#fff7ea] px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-gold)]">
-            SEO Knowledge Hub
+            Visa Rejection Recovery Guides
           </p>
           <h1 className="mt-5 text-4xl text-[var(--color-navy)] md:text-6xl">
-            Visa Refusal Recovery Blog
+            Visa Rejected? Read This Before You Reapply
           </h1>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[var(--color-muted)]">
-            Practical long-form guides for applicants searching for clear,
-            strategy-led answers after a refusal.
+            Honest, no-BS guides written for real people dealing with real visa rejections.
+            From understanding 214(b) to fixing your documents — everything you need to know before your next application.
           </p>
         </Reveal>
 
