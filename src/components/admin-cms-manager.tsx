@@ -932,10 +932,10 @@ const SITE_CONFIG_TEMPLATES: SiteConfigTemplate[] = [
   {
     key: "contact_whatsapp",
     label: "WhatsApp Number",
-    description: "WhatsApp number used for floating button, form CTAs, and footer. Format: 917737099474 (country code + number, no spaces).",
+    description: "WhatsApp number used for floating button, form CTAs, and footer. Format: 919887678900 (country code + number, no spaces).",
     group: "Contact Info",
     type: "text",
-    fallbackValue: "917737099474",
+    fallbackValue: "919887678900",
   },
   {
     key: "contact_email",
@@ -943,7 +943,7 @@ const SITE_CONFIG_TEMPLATES: SiteConfigTemplate[] = [
     description: "Primary email shown in footer and used for notifications.",
     group: "Contact Info",
     type: "text",
-    fallbackValue: "hello@visaguru.live",
+    fallbackValue: "VisaHelper@visaguru.live",
   },
   {
     key: "contact_phone",
@@ -951,7 +951,7 @@ const SITE_CONFIG_TEMPLATES: SiteConfigTemplate[] = [
     description: "Phone number shown in footer contact section.",
     group: "Contact Info",
     type: "text",
-    fallbackValue: "+91 7737099474",
+    fallbackValue: "+91 9887678900",
   },
   {
     key: "brand_name",
@@ -1024,9 +1024,9 @@ const SITE_CONFIG_TEMPLATES: SiteConfigTemplate[] = [
     group: "Footer & Legal",
     type: "json",
     fallbackValue: [
-      { label: "Email", href: "mailto:hello@visaguru.live" },
-      { label: "WhatsApp", href: "https://wa.me/917737099474" },
-      { label: "Phone", href: "tel:+917737099474" },
+      { label: "Email", href: "mailto:VisaHelper@visaguru.live" },
+      { label: "WhatsApp", href: "https://wa.me/919887678900" },
+      { label: "Phone", href: "tel:+919887678900" },
     ],
     aliases: ["footerContactLinks"],
   },

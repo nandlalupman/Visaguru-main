@@ -66,7 +66,7 @@ export default async function Home() {
     name: "VisaGuru",
     image: "https://visaguru.live/og-image.jpg",
     url: "https://visaguru.live",
-    telephone: "+91-7737099474",
+    telephone: "+91-9887678900",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Via Arenaccia, 29",

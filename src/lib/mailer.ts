@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const FROM_NAME = "VisaGuru";
-const FROM_EMAIL = process.env.SMTP_USER || "hello@visaguru.live";
+const FROM_EMAIL = process.env.SMTP_USER || "VisaHelper@visaguru.live";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@visaguru.live";
 
 function isConfigured(): boolean {
@@ -112,7 +112,7 @@ export async function sendUserConfirmation(to: string, visaType: string): Promis
             </ul>
           </div>
           <p style="color: #5a6a7e; font-size: 14px;">
-            Need faster help? <a href="https://wa.me/917737099474?text=Hi%20VisaGuru,%20I%20submitted%20a%20case" style="color: #25D366; font-weight: 600;">Chat on WhatsApp →</a>
+            Need faster help? <a href="https://wa.me/919887678900?text=Hi%20VisaGuru,%20I%20submitted%20a%20case" style="color: #25D366; font-weight: 600;">Chat on WhatsApp →</a>
           </p>
         </div>
         <p style="text-align: center; color: #b0bec5; font-size: 11px; margin: 20px 0 0;">© ${new Date().getFullYear()} VisaGuru · Premium Visa Recovery</p>

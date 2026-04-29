@@ -63,7 +63,7 @@ const rules: Rule[] = [
   {
     keywords: ["whatsapp", "call", "contact", "phone", "reach"],
     reply:
-      "You can reach us on WhatsApp at +91 77370 99474 or email hello@visaguru.live. For a structured start, submit free refusal analysis from the homepage.",
+      "You can reach us on WhatsApp at +91 98876 78900 or email VisaHelper@visaguru.live. For a structured start, submit free refusal analysis from the homepage.",
   },
   {
     keywords: ["hello", "hi", "hey", "help"],
@@ -127,6 +127,6 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     reply:
       match?.reply ??
-      "Please share your visa type and refusal reason for specific guidance. You can also use free refusal analysis from the homepage or WhatsApp +91 77370 99474 for human support.",
+      "Please share your visa type and refusal reason for specific guidance. You can also use free refusal analysis from the homepage or WhatsApp +91 98876 78900 for human support.",
   });
 }

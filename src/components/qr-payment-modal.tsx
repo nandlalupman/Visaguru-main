@@ -12,7 +12,7 @@ type QRPaymentModalProps = {
   price: string;
 };
 
-const WHATSAPP_NUMBER = "917737099474";
+const WHATSAPP_NUMBER = "919887678900";
 
 export function QRPaymentModal({
   isOpen,

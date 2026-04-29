@@ -8,9 +8,9 @@ export type ContactInfo = {
 };
 
 const DEFAULTS = {
-  whatsapp: "917737099474",
-  email: "hello@visaguru.live",
-  phone: "+91 7737099474",
+  whatsapp: "919887678900",
+  email: "VisaHelper@visaguru.live",
+  phone: "+91 9887678900",
 };
 
 export async function getContactInfo(): Promise<ContactInfo> {

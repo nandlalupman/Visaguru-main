@@ -108,7 +108,7 @@ export function FreeAnalysisForm() {
         
         <div className="mt-6 flex flex-col gap-3 sm:flex-row w-full justify-center">
           <a
-            href="https://wa.me/917737099474?text=Hi%20VisaGuru,%20I%20just%20submitted%20a%20free%20analysis%20request."
+            href="https://wa.me/919887678900?text=Hi%20VisaGuru,%20I%20just%20submitted%20a%20free%20analysis%20request."
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-95"

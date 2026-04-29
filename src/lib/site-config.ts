@@ -122,9 +122,9 @@ const DEFAULT_FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
 ];
 
 const DEFAULT_FOOTER_CONTACTS: ContactLink[] = [
-  { label: "Email", href: "mailto:hello@visaguru.live" },
-  { label: "WhatsApp", href: "https://wa.me/917737099474" },
-  { label: "Phone", href: "tel:+917737099474" },
+  { label: "Email", href: "mailto:VisaHelper@visaguru.live" },
+  { label: "WhatsApp", href: "https://wa.me/919887678900" },
+  { label: "Phone", href: "tel:+919887678900" },
 ];
 
 const DEFAULT_FOOTER_SOCIALS: SocialLink[] = [
